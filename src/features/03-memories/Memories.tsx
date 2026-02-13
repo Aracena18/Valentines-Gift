@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import memoriesData from '@/data/memories.json';
 import { AnimatePresence } from 'framer-motion';
+import { useCallback } from 'react';
 import { BottomSheet } from './BottomSheet';
 import { MemoryCard } from './MemoryCard';
-import memoriesData from '@/data/memories.json';
 
 interface MemoriesProps {
   activeMemoryId: string | null;

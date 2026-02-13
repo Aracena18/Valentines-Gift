@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
-import confetti from 'canvas-confetti';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import confetti from 'canvas-confetti';
+import { useEffect, useRef } from 'react';
 
 export function ConfettiOverlay() {
   const { tier } = useDeviceCapability();

@@ -1,6 +1,6 @@
+import { useAudioStore } from '@/stores/useAudioStore';
 import { Howl } from 'howler';
 import { useCallback, useEffect, useRef } from 'react';
-import { useAudioStore } from '@/stores/useAudioStore';
 
 // Global audio context unlock for iOS
 let audioUnlocked = false;

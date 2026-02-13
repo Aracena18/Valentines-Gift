@@ -8,9 +8,9 @@ export async function hashPassword(password: string): Promise<string> {
 }
 
 // Pre-computed hash of the secret phrase
-// Default: "iloveyou" → change this to your secret phrase's hash
-// To generate: open browser console, run:
+// To generate a new hash: open browser console, run:
 //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('yoursecret'))
 //     .then(buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join(''))
 //     .then(console.log)
-export const SECRET_HASH = '298229bfb26938785fea8b75bfcb8297b4560c438dbf22b1017890f3da498fea'; // "iloveyou"
+export const SECRET_HASH = '6c1cdd336524f0fb1617de6b0c644507640ec367f499ea19870ac2ec6937cda5'; // "072023"
+Ca

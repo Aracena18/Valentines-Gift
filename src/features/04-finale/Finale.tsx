@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/Button';
+import { SectionTransition } from '@/components/SectionTransition';
+import { useHaptic } from '@/hooks/useHaptic';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+import { ConfettiOverlay } from './ConfettiOverlay';
 import { LetterReveal } from './LetterReveal';
 import { VideoPlayer } from './VideoPlayer';
-import { ConfettiOverlay } from './ConfettiOverlay';
-import { Button } from '@/components/Button';
-import { useHaptic } from '@/hooks/useHaptic';
-import { SectionTransition } from '@/components/SectionTransition';
 
 type FinaleStage = 'waiting' | 'letter' | 'video' | 'celebration';
 

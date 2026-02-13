@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/Button';
+import { motion } from 'framer-motion';
+import { useRef, useState } from 'react';
 
 interface VideoPlayerProps {
   onEnd: () => void;

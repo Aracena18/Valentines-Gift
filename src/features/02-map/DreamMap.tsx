@@ -1,10 +1,10 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin } from './MapPin';
-import { MapCanvas } from './MapCanvas';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { useDeviceCapability } from '@/hooks/useDeviceCapability';
 import memoriesData from '@/data/memories.json';
+import { useDeviceCapability } from '@/hooks/useDeviceCapability';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { MapCanvas } from './MapCanvas';
+import { MapPin } from './MapPin';
 
 interface DreamMapProps {
   onPinClick: (memoryId: string) => void;

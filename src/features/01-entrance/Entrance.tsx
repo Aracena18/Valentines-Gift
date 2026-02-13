@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { SecretInput } from './SecretInput';
-import { PaperUnfold } from './PaperUnfold';
 import { FloatingHearts } from '@/components/FloatingHearts';
-import { useAppStore } from '@/stores/useAppStore';
-import { useHaptic } from '@/hooks/useHaptic';
 import { unlockAudio } from '@/hooks/useAudio';
+import { useHaptic } from '@/hooks/useHaptic';
+import { useAppStore } from '@/stores/useAppStore';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+import { PaperUnfold } from './PaperUnfold';
+import { SecretInput } from './SecretInput';
 
 export function Entrance() {
   const [isUnfolding, setIsUnfolding] = useState(false);
@@ -32,10 +32,22 @@ export function Entrance() {
       {/* Ambient hearts */}
       <FloatingHearts />
 
+      {/* Aurora romantic glow */}
+      <div className="aurora-bg" aria-hidden="true" />
+
       {/* Starfield background */}
       <div className="absolute inset-0" aria-hidden="true">
         <StarfieldCanvas />
       </div>
+
+      {/* Vignette overlay for depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(15,15,26,0.6) 100%)',
+        }}
+      />
 
       {/* Content */}
       <AnimatePresence mode="wait">
@@ -46,6 +58,20 @@ export function Entrance() {
 
       {isUnfolding && (
         <PaperUnfold onComplete={handleUnfoldComplete} />
+      )}
+
+      {/* Romantic bottom decorative element */}
+      {showInput && !isUnfolding && (
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 2 }}
+          aria-hidden="true"
+          style={{
+            background: 'linear-gradient(to top, rgba(230,57,70,0.06), transparent)',
+          }}
+        />
       )}
     </div>
   );
@@ -75,6 +101,23 @@ function StarfieldCanvas() {
           `,
         }}
       />
+      {/* Twinkling animated stars */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 8 }, (_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`,
+              left: `${10 + (i * 11) % 85}%`,
+              top: `${5 + (i * 17) % 90}%`,
+              animation: `twinkle ${2 + i * 0.7}s ${i * 0.5}s ease-in-out infinite`,
+            }}
+          />
+        ))}
+      </div>
+
       {/* Soft nebula gradient */}
       <div
         className="absolute inset-0 opacity-20"

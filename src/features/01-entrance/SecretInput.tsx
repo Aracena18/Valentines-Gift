@@ -1,9 +1,9 @@
-import { useState, useRef, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import { hashPassword, SECRET_HASH } from '@/lib/crypto';
 import { Button } from '@/components/Button';
 import { useHaptic } from '@/hooks/useHaptic';
 import { fadeInUp, scaleIn } from '@/lib/animations';
+import { hashPassword, SECRET_HASH } from '@/lib/crypto';
+import { motion } from 'framer-motion';
+import { useRef, useState, type FormEvent } from 'react';
 
 interface SecretInputProps {
   onSuccess: () => void;

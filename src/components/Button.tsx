@@ -1,5 +1,5 @@
-import { motion, type HTMLMotionProps } from 'framer-motion';
 import { useHaptic } from '@/hooks/useHaptic';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {

@@ -1,6 +1,6 @@
+import { staggerContainer, staggerItem } from '@/lib/animations';
 import { motion } from 'framer-motion';
 import { VoiceClip } from './VoiceClip';
-import { staggerContainer, staggerItem } from '@/lib/animations';
 
 interface Memory {
   id: string;

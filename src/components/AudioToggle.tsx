@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { useAudioStore } from '@/stores/useAudioStore';
 import { useHaptic } from '@/hooks/useHaptic';
+import { useAudioStore } from '@/stores/useAudioStore';
+import { motion } from 'framer-motion';
 
 export function AudioToggle() {
   const { isMuted, toggleMute } = useAudioStore();

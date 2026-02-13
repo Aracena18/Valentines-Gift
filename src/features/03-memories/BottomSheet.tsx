@@ -1,8 +1,8 @@
-import { useRef, useEffect, type ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { useDrag } from '@use-gesture/react';
 import { useHaptic } from '@/hooks/useHaptic';
 import { slideFromBottom } from '@/lib/animations';
+import { useDrag } from '@use-gesture/react';
+import { motion } from 'framer-motion';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 interface BottomSheetProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
-import { motion, useTransform, type MotionValue } from 'framer-motion';
 import { useHaptic } from '@/hooks/useHaptic';
+import { motion, useTransform, type MotionValue } from 'framer-motion';
 
 interface Memory {
   id: string;

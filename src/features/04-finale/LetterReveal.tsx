@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
 import { Button } from '@/components/Button';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { motion } from 'framer-motion';
 
 interface LetterRevealProps {
   onComplete: () => void;

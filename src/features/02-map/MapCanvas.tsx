@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useEffect, useRef } from 'react';
 
 interface Particle {
   x: number;

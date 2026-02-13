@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useMemo } from 'react';
 
 interface HeartConfig {
   id: number;

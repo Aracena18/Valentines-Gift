@@ -1,10 +1,10 @@
-import { lazy, Suspense, useState, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { useAppStore } from '@/stores/useAppStore';
-import { Entrance } from '@/features/01-entrance/Entrance';
 import { AudioToggle } from '@/components/AudioToggle';
-import { ProgressIndicator } from '@/components/ProgressIndicator';
 import { FloatingHearts } from '@/components/FloatingHearts';
+import { ProgressIndicator } from '@/components/ProgressIndicator';
+import { Entrance } from '@/features/01-entrance/Entrance';
+import { useAppStore } from '@/stores/useAppStore';
+import { AnimatePresence } from 'framer-motion';
+import { lazy, Suspense, useCallback, useState } from 'react';
 
 // Lazy-load heavy sections for code splitting
 const DreamMap = lazy(() =>

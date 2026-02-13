@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { motion } from 'framer-motion';
 
 interface PaperUnfoldProps {
   onComplete: () => void;
