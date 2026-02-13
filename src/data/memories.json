@@ -1,0 +1,64 @@
+{
+  "memories": [
+    {
+      "id": "first-meeting",
+      "title": "The Day We Met",
+      "date": "2024-01-15",
+      "location": "That Little Coffee Shop",
+      "description": "I still remember how nervous I was. You smiled at me, and everything else just... faded away. That was the moment I knew something extraordinary was beginning.",
+      "image": "/images/placeholder-1.jpg",
+      "lqip": "",
+      "voiceClip": "",
+      "color": "#e63946",
+      "pinPosition": { "x": 25, "y": 18 }
+    },
+    {
+      "id": "first-date",
+      "title": "Our First Date",
+      "date": "2024-02-14",
+      "location": "Under the Stars",
+      "description": "We talked for hours and it felt like minutes. I couldn't stop looking at your eyes. You laughed at my terrible jokes and I fell a little more with each one.",
+      "image": "/images/placeholder-2.jpg",
+      "lqip": "",
+      "voiceClip": "",
+      "color": "#d4a574",
+      "pinPosition": { "x": 65, "y": 32 }
+    },
+    {
+      "id": "first-trip",
+      "title": "Our First Adventure",
+      "date": "2024-05-20",
+      "location": "Somewhere Beautiful",
+      "description": "Just you and me against the world. Every wrong turn became a new discovery, every moment became a memory I'll cherish forever.",
+      "image": "/images/placeholder-3.jpg",
+      "lqip": "",
+      "voiceClip": "",
+      "color": "#b8a9c9",
+      "pinPosition": { "x": 40, "y": 52 }
+    },
+    {
+      "id": "saying-iloveyou",
+      "title": "Three Little Words",
+      "date": "2024-07-04",
+      "location": "Right Where We Belonged",
+      "description": "My heart was racing so fast. When those words finally left my lips, and you said them back... that was the most perfect moment of my life.",
+      "image": "/images/placeholder-4.jpg",
+      "lqip": "",
+      "voiceClip": "",
+      "color": "#ff6b7a",
+      "pinPosition": { "x": 70, "y": 68 }
+    },
+    {
+      "id": "favorite-moment",
+      "title": "Our Little World",
+      "date": "2024-12-25",
+      "location": "Home, With You",
+      "description": "It doesn't matter where we are — as long as I'm with you, I'm home. This was the moment I realized that. Wrapped in blankets, your head on my shoulder, everything was exactly right.",
+      "image": "/images/placeholder-5.jpg",
+      "lqip": "",
+      "voiceClip": "",
+      "color": "#d4a574",
+      "pinPosition": { "x": 50, "y": 85 }
+    }
+  ]
+}

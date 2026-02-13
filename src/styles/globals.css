@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+:root {
+  --color-deep-navy: #1a1a2e;
+  --color-midnight: #0f0f1a;
+  --color-rose: #e63946;
+  --color-rose-light: #ff6b7a;
+  --color-blush: #f4a0a0;
+  --color-cream: #fdf6e3;
+  --color-gold: #d4a574;
+  --color-gold-light: #e8c89e;
+  --color-lavender: #b8a9c9;
+  --color-soft-white: #f5f0eb;
+  --color-glass: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  --font-handwriting: 'Caveat', cursive;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ── Base Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-midnight);
+  color: var(--color-cream);
+  min-height: 100dvh;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* Allow text selection on specific elements */
+.selectable {
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-glass-border);
+  border-radius: 2px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Safe area padding utility ── */
+.safe-padding {
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.safe-bottom {
+  padding-bottom: calc(var(--safe-bottom) + 16px);
+}
+
+/* ── Floating Hearts Ambient ── */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100dvh) translateX(30px) scale(0.5) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 4px rgba(230, 57, 70, 0.3));
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 12px rgba(230, 57, 70, 0.6));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes gentle-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ── Glass morphism utility ── */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(12px) saturate(1.5);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  border: 1px solid var(--color-glass-border);
+}
+
+/* ── Handwriting font utility ── */
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* ── Tailwind custom utilities via @layer ── */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(230, 57, 70, 0.5), 0 0 40px rgba(230, 57, 70, 0.2);
+  }
+
+  .text-shadow-soft {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+}
