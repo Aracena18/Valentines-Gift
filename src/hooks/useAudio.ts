@@ -2,18 +2,39 @@ import { useAudioStore } from '@/stores/useAudioStore';
 import { Howl } from 'howler';
 import { useCallback, useEffect, useRef } from 'react';
 
-// Global audio context unlock for iOS
+// Global audio context unlock for iOS and strict browsers
 let audioUnlocked = false;
 
 export function unlockAudio() {
-  if (audioUnlocked) return;
-  const silentBuffer = new AudioContext();
-  const buffer = silentBuffer.createBuffer(1, 1, 22050);
-  const source = silentBuffer.createBufferSource();
-  source.buffer = buffer;
-  source.connect(silentBuffer.destination);
-  source.start(0);
-  audioUnlocked = true;
+  if (audioUnlocked) return Promise.resolve();
+  
+  return new Promise<void>((resolve) => {
+    try {
+      const context = new AudioContext();
+      const buffer = context.createBuffer(1, 1, 22050);
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.connect(context.destination);
+      source.start(0);
+      
+      // Also try to resume the context
+      if (context.state === 'suspended') {
+        context.resume().then(() => {
+          audioUnlocked = true;
+          resolve();
+        }).catch(() => {
+          audioUnlocked = true;
+          resolve();
+        });
+      } else {
+        audioUnlocked = true;
+        resolve();
+      }
+    } catch (e) {
+      audioUnlocked = true;
+      resolve();
+    }
+  });
 }
 
 interface UseAudioOptions {
@@ -42,14 +63,15 @@ export function useAudio(options: UseAudioOptions) {
   }, [src, loop, volume, preload, isMuted]);
 
   const play = useCallback(() => {
-    unlockAudio();
-    const sound = getSound();
-    if (isMuted) {
-      sound.volume(0);
-    } else {
-      sound.volume(volume);
-    }
-    sound.play();
+    unlockAudio().then(() => {
+      const sound = getSound();
+      if (isMuted) {
+        sound.volume(0);
+      } else {
+        sound.volume(volume);
+      }
+      sound.play();
+    });
   }, [getSound, isMuted, volume]);
 
   const pause = useCallback(() => {
@@ -62,13 +84,14 @@ export function useAudio(options: UseAudioOptions) {
 
   const fadeIn = useCallback(
     (duration = 1000) => {
-      unlockAudio();
-      const sound = getSound();
-      sound.volume(0);
-      sound.play();
-      if (!isMuted) {
-        sound.fade(0, volume, duration);
-      }
+      unlockAudio().then(() => {
+        const sound = getSound();
+        sound.volume(0);
+        sound.play();
+        if (!isMuted) {
+          sound.fade(0, volume, duration);
+        }
+      });
     },
     [getSound, isMuted, volume]
   );

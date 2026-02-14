@@ -67,10 +67,25 @@ export default function App() {
 
   // Ensure interaction is registered on first click/tap (for background music)
   const handleFirstInteraction = useCallback(() => {
-    if (!hasInteracted) {
+    setInteracted();
+  }, [setInteracted]);
+
+  // Register interaction on any click/touch (for strict autoplay policies)
+  useEffect(() => {
+    const registerInteraction = () => {
       setInteracted();
-    }
-  }, [hasInteracted, setInteracted]);
+    };
+
+    document.addEventListener('click', registerInteraction, { once: true });
+    document.addEventListener('touchstart', registerInteraction, { once: true });
+    document.addEventListener('keydown', registerInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('click', registerInteraction);
+      document.removeEventListener('touchstart', registerInteraction);
+      document.removeEventListener('keydown', registerInteraction);
+    };
+  }, [setInteracted]);
 
   return (
     <div className="relative min-h-dvh">
