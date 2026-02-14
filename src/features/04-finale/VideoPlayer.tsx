@@ -80,6 +80,9 @@ export function VideoPlayer({ onEnd }: VideoPlayerProps) {
               <p className="text-(--color-lavender)/80 text-sm mt-2">
                 Click to watch on YouTube
               </p>
+              <p className="text-(--color-gold)/90 text-xs mt-3 italic">
+                ✨ Come back here after watching for the finale ✨
+              </p>
             </div>
 
             {/* YouTube logo hint */}
