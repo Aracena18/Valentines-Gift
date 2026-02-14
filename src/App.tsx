@@ -7,7 +7,7 @@ import { EasterEggBadge } from '@/features/easter-eggs/EasterEggs';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { useAppStore } from '@/stores/useAppStore';
 import { AnimatePresence, motion } from 'framer-motion';
-import { lazy, Suspense, useCallback, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 
 // Lazy-load heavy sections for code splitting
 const DreamMap = lazy(() =>
