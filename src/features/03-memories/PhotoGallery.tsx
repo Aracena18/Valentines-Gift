@@ -45,14 +45,16 @@ export function PhotoGallery() {
     ({ active, movement: [mx], velocity: [vx], direction: [dx], cancel }) => {
       if (active) {
         dragX.set(mx);
-        if (Math.abs(mx) > 120) {
+        // Easier swipe threshold - only need 60px drag
+        if (Math.abs(mx) > 60) {
           cancel();
           dragX.set(0);
           paginate(mx < 0 ? 1 : -1);
         }
       } else {
+        // Much easier velocity-based swipe - reduced from 6000 to 2500
         const power = Math.abs(mx) * vx;
-        if (power > 6000) {
+        if (power > 2500 || Math.abs(vx) > 0.3) {
           dragX.set(0);
           paginate(dx > 0 ? -1 : 1);
         } else {
@@ -60,7 +62,12 @@ export function PhotoGallery() {
         }
       }
     },
-    { axis: 'x', filterTaps: true, pointer: { touch: true } }
+    { 
+      axis: 'x', 
+      filterTaps: true, 
+      pointer: { touch: true },
+      rubberband: true, // Adds smooth elastic feel
+    }
   );
 
   // Strip onAnimationStart to avoid framer-motion type conflict

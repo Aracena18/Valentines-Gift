@@ -22,7 +22,7 @@ export function VideoPlayer({ onEnd }: VideoPlayerProps) {
     <div className="space-y-6">
       {/* Video card with play button */}
       <motion.div
-        className="relative rounded-2xl overflow-hidden aspect-video cursor-pointer group"
+        className="relative rounded-2xl overflow-hidden cursor-pointer group"
         onClick={handleWatchVideo}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
@@ -30,14 +30,15 @@ export function VideoPlayer({ onEnd }: VideoPlayerProps) {
           background: 'linear-gradient(135deg, rgba(230,57,70,0.15), rgba(212,165,116,0.1))',
           border: '2px solid rgba(230,57,70,0.3)',
           boxShadow: '0 0 40px rgba(230,57,70,0.2)',
+          minHeight: '280px',
         }}
       >
-        {/* Background image placeholder */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center space-y-4 px-6">
+        {/* Content container */}
+        <div className="flex items-center justify-center py-8 px-6 min-h-[280px]">
+          <div className="text-center space-y-4 w-full max-w-md">
             {/* Play button */}
             <motion.div
-              className="mx-auto relative"
+              className="mx-auto relative w-20 h-20"
               whileHover={{ scale: 1.1 }}
               transition={{ type: 'spring', stiffness: 300 }}
             >
@@ -73,20 +74,20 @@ export function VideoPlayer({ onEnd }: VideoPlayerProps) {
             </motion.div>
 
             {/* Text */}
-            <div>
+            <div className="space-y-2">
               <h3 className="font-serif text-xl md:text-2xl text-(--color-cream) text-shadow-romantic">
                 Watch Our Special Moment
               </h3>
-              <p className="text-(--color-lavender)/80 text-sm mt-2">
+              <p className="text-(--color-lavender)/80 text-sm">
                 Click to watch on YouTube
               </p>
-              <p className="text-(--color-gold)/90 text-xs mt-3 italic">
+              <p className="text-(--color-gold)/90 text-xs italic">
                 ✨ Come back here after watching for the finale ✨
               </p>
             </div>
 
             {/* YouTube logo hint */}
-            <div className="flex items-center justify-center gap-2 text-(--color-lavender)/60 text-xs">
+            <div className="flex items-center justify-center gap-2 text-(--color-lavender)/60 text-xs pt-2">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
               </svg>
