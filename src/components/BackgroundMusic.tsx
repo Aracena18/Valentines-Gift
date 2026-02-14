@@ -7,29 +7,38 @@ export function BackgroundMusic() {
   const hasInteracted = useAppStore((s) => s.hasInteracted);
   const isPlaying = useRef(false);
   const [showPrompt, setShowPrompt] = useState(false);
-  const { fadeIn, fadeOut } = useAudio({
+  const { fadeIn, fadeOut, sound } = useAudio({
     src: '/audio/ambient.mp3',
     loop: true,
     volume: 0.3,
-    preload: false, // Stream instead of preloading for faster start
+    preload: false,
   });
 
   useEffect(() => {
     if (hasInteracted && !isPlaying.current) {
       isPlaying.current = true;
-      
-      // Start immediately, no delay
-      try {
-        fadeIn(1500); // Faster fade-in
-        // Hide prompt if music starts successfully
-        setTimeout(() => setShowPrompt(false), 2000);
-      } catch (error) {
-        console.warn('Audio playback failed:', error);
-        // Show prompt to manually start music
-        setShowPrompt(true);
-      }
+      fadeIn(1500);
+
+      // Check if music actually started after a moment
+      const checkTimer = setTimeout(() => {
+        const s = sound.current;
+        if (!s || !s.playing()) {
+          setShowPrompt(true);
+          isPlaying.current = false;
+        }
+      }, 2000);
+
+      return () => clearTimeout(checkTimer);
     }
-  }, [hasInteracted, fadeIn]);
+  }, [hasInteracted, fadeIn, sound]);
+
+  // Show prompt after 4 seconds if no interaction has happened yet
+  useEffect(() => {
+    if (!hasInteracted) {
+      const timer = setTimeout(() => setShowPrompt(true), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasInteracted]);
 
   useEffect(() => {
     return () => {
@@ -41,10 +50,10 @@ export function BackgroundMusic() {
   }, [fadeOut]);
 
   const handleManualPlay = () => {
-    if (!isPlaying.current) {
-      isPlaying.current = true;
-      fadeIn(1500); // Faster fade-in
-    }
+    const setInteracted = useAppStore.getState().setInteracted;
+    setInteracted();
+    isPlaying.current = true;
+    fadeIn(1500);
     setShowPrompt(false);
   };
 

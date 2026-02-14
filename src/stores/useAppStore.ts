@@ -44,7 +44,7 @@ export const useAppStore = create<AppState>()(
       partialize: (state) => ({
         isUnlocked: state.isUnlocked,
         easterEggsFound: state.easterEggsFound,
-        hasInteracted: state.hasInteracted, // Persist interaction state
+        // hasInteracted is NOT persisted — browsers need a fresh gesture each session
       }),
     }
   )

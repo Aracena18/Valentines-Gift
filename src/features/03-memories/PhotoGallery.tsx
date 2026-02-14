@@ -3,7 +3,7 @@ import { useHaptic } from '@/hooks/useHaptic';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useDrag } from '@use-gesture/react';
 import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 const photos = photoList.map((path, idx) => ({
   id: `photo-${idx}`,
@@ -25,10 +25,14 @@ const STACK_QUIRKS = [
   { rotate: -9, xShift: 6, yShift: -34 },    // furthest
 ];
 
+// Swipe threshold in px — very easy to trigger
+const SWIPE_THRESHOLD = 35;
+
 export function PhotoGallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const prefersReduced = useReducedMotion();
   const { hapticTap } = useHaptic();
+  const isDragging = useRef(false);
 
   const dragX = useMotionValue(0);
   const dragRotate = useTransform(dragX, [-200, 0, 200], [-8, 0, 8]);
@@ -42,31 +46,46 @@ export function PhotoGallery() {
   );
 
   const bindHandlers = useDrag(
-    ({ active, movement: [mx], velocity: [vx], direction: [dx], cancel }) => {
+    ({ active, movement: [mx], velocity: [vx], direction: [dx], cancel, first, tap }) => {
+      if (tap) return;
+
+      if (first) {
+        isDragging.current = false;
+      }
+
       if (active) {
-        dragX.set(mx);
-        // Easier swipe threshold - only need 60px drag
-        if (Math.abs(mx) > 60) {
-          cancel();
-          dragX.set(0);
-          paginate(mx < 0 ? 1 : -1);
+        // Only start dragging after a small horizontal threshold to not block scroll
+        if (Math.abs(mx) > 8) {
+          isDragging.current = true;
+        }
+
+        if (isDragging.current) {
+          dragX.set(mx);
+          // Very easy swipe — only 35px needed
+          if (Math.abs(mx) > SWIPE_THRESHOLD) {
+            cancel();
+            dragX.set(0);
+            isDragging.current = false;
+            paginate(mx < 0 ? 1 : -1);
+          }
         }
       } else {
-        // Much easier velocity-based swipe - reduced from 6000 to 2500
-        const power = Math.abs(mx) * vx;
-        if (power > 2500 || Math.abs(vx) > 0.3) {
-          dragX.set(0);
-          paginate(dx > 0 ? -1 : 1);
-        } else {
-          dragX.set(0);
+        if (isDragging.current) {
+          // Easy velocity-based swipe
+          if (Math.abs(vx) > 0.15 || Math.abs(mx) > 25) {
+            paginate(dx > 0 ? -1 : 1);
+          }
+          isDragging.current = false;
         }
+        dragX.set(0);
       }
     },
     { 
-      axis: 'x', 
+      axis: 'lock', // lock to dominant axis — allows vertical scroll if swiping vertically
       filterTaps: true, 
       pointer: { touch: true },
-      rubberband: true, // Adds smooth elastic feel
+      preventScrollAxis: 'x', // only prevent scroll on horizontal swipe, allow vertical
+      threshold: 8, // need 8px before gesture starts — allows vertical scroll
     }
   );
 
@@ -100,8 +119,8 @@ export function PhotoGallery() {
 
       {/* ── Stacked card deck ── */}
       <div
-        className="relative w-full max-w-[340px] mx-auto touch-none select-none"
-        style={{ height: 480 }}
+        className="relative w-full max-w-[340px] mx-auto select-none"
+        style={{ height: 480, touchAction: 'pan-y' }}
       >
         {/* Background stacked cards (rendered bottom-to-top) */}
         {Array.from({ length: VISIBLE_CARDS }, (_, i) => {
