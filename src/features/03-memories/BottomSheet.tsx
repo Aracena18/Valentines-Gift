@@ -58,12 +58,27 @@ export function BottomSheet({ children, onClose }: BottomSheetProps) {
     };
   }, [trapFocus]);
 
-  // Prevent body scroll when sheet is open
+  // Prevent body scroll when sheet is open (preserve scroll position)
   useEffect(() => {
+    const scrollY = window.scrollY;
     const original = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+    const originalTop = document.body.style.top;
+    const originalWidth = document.body.style.width;
+
+    // Lock scroll at current position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
+
     return () => {
+      // Restore scroll position
+      document.body.style.position = originalPosition;
+      document.body.style.top = originalTop;
+      document.body.style.width = originalWidth;
       document.body.style.overflow = original;
+      window.scrollTo(0, scrollY);
     };
   }, []);
 
