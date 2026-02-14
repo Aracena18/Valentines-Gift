@@ -20,16 +20,16 @@ interface MapPinProps {
 export function MapPin({ memory, index, scrollProgress, onClick }: MapPinProps) {
   const { hapticTap } = useHaptic();
 
-  // Each pin appears as user scrolls through the map
-  const pinAppearThreshold = index / 5; // 5 = total memories
+  // Each pin appears quickly as user scrolls (all visible by 30% scroll)
+  const pinAppearThreshold = index / 15; // Much faster: 0%, 6.7%, 13.3%, 20%, 26.7%
   const opacity = useTransform(
     scrollProgress,
-    [Math.max(0, pinAppearThreshold - 0.05), pinAppearThreshold + 0.05],
+    [Math.max(0, pinAppearThreshold - 0.05), pinAppearThreshold + 0.1],
     [0, 1]
   );
   const scale = useTransform(
     scrollProgress,
-    [Math.max(0, pinAppearThreshold - 0.05), pinAppearThreshold + 0.05],
+    [Math.max(0, pinAppearThreshold - 0.05), pinAppearThreshold + 0.1],
     [0.5, 1]
   );
 
@@ -82,9 +82,14 @@ export function MapPin({ memory, index, scrollProgress, onClick }: MapPinProps) 
         transition={{ delay: 0.3 + index * 0.1 }}
         className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap"
       >
-        <span className="text-xs font-handwriting text-(--color-cream) bg-(--color-midnight)/80 px-2 py-1 rounded-lg backdrop-blur-sm">
-          {memory.title}
-        </span>
+        <div className="flex flex-col items-center glass-card px-3 py-1.5 rounded-xl">
+          <span className="font-handwriting text-(--color-cream) text-sm">
+            {memory.title}
+          </span>
+          <span className="text-[10px] text-(--color-gold) opacity-70">
+            {new Date(memory.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+          </span>
+        </div>
       </motion.div>
     </motion.button>
   );

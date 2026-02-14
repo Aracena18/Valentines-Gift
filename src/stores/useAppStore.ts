@@ -10,9 +10,9 @@ interface AppState {
   currentSection: number;
   setSection: (section: number) => void;
 
-  // Choose-your-path choices (Phase 2)
-  choices: Record<string, string>;
-  setChoice: (key: string, value: string) => void;
+  // Easter Eggs
+  easterEggsFound: string[];
+  addEasterEgg: (id: string) => void;
 
   // Has user interacted (for audio unlock)
   hasInteracted: boolean;
@@ -28,9 +28,13 @@ export const useAppStore = create<AppState>()(
       currentSection: 0,
       setSection: (section) => set({ currentSection: section }),
 
-      choices: {},
-      setChoice: (key, value) =>
-        set((state) => ({ choices: { ...state.choices, [key]: value } })),
+      easterEggsFound: [],
+      addEasterEgg: (id) =>
+        set((state) => ({
+          easterEggsFound: state.easterEggsFound.includes(id)
+            ? state.easterEggsFound
+            : [...state.easterEggsFound, id],
+        })),
 
       hasInteracted: false,
       setInteracted: () => set({ hasInteracted: true }),
@@ -39,7 +43,8 @@ export const useAppStore = create<AppState>()(
       name: 'map-of-us-app',
       partialize: (state) => ({
         isUnlocked: state.isUnlocked,
-        choices: state.choices,
+        easterEggsFound: state.easterEggsFound,
+        hasInteracted: state.hasInteracted, // Persist interaction state
       }),
     }
   )

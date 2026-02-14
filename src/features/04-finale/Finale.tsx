@@ -1,17 +1,28 @@
 import { Button } from '@/components/Button';
 import { SectionTransition } from '@/components/SectionTransition';
+import { HeartTapEasterEgg } from '@/features/easter-eggs/EasterEggs';
 import { useHaptic } from '@/hooks/useHaptic';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ConfettiOverlay } from './ConfettiOverlay';
 import { LetterReveal } from './LetterReveal';
+import { PixelArtPortrait } from './PixelArtPortrait';
 import { VideoPlayer } from './VideoPlayer';
 
 type FinaleStage = 'waiting' | 'letter' | 'video' | 'celebration';
 
+// Calculate days together from the first memory date
+function getDaysTogether(): number {
+  const startDate = new Date('2023-07-20'); // "The Day We Met"
+  const today = new Date();
+  const diffMs = today.getTime() - startDate.getTime();
+  return Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24)));
+}
+
 export function Finale() {
   const [stage, setStage] = useState<FinaleStage>('waiting');
   const { hapticSuccess } = useHaptic();
+  const daysTogether = useMemo(getDaysTogether, []);
 
   const handleReady = useCallback(() => {
     hapticSuccess();
@@ -41,17 +52,28 @@ export function Finale() {
               transition={{ duration: 0.8 }}
               className="text-center space-y-8"
             >
+              {/* Animated beating heart */}
               <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ animation: 'heartbeat 1.5s ease-in-out infinite' }}
               >
-                <svg width="56" height="56" viewBox="0 0 24 24" fill="var(--color-rose)" className="mx-auto">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
+                <motion.div
+                  animate={{
+                    filter: [
+                      'drop-shadow(0 0 10px rgba(230,57,70,0.3))',
+                      'drop-shadow(0 0 30px rgba(230,57,70,0.6))',
+                      'drop-shadow(0 0 10px rgba(230,57,70,0.3))',
+                    ],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <svg width="56" height="56" viewBox="0 0 24 24" fill="var(--color-rose)" className="mx-auto">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                  </svg>
+                </motion.div>
               </motion.div>
 
               <div>
-                <h2 className="font-serif text-2xl md:text-3xl text-(--color-cream) mb-3">
+                <h2 className="font-serif text-2xl md:text-3xl text-(--color-cream) mb-3 text-shadow-romantic">
                   One Last Thing...
                 </h2>
                 <p className="text-(--color-lavender) text-sm">
@@ -101,16 +123,16 @@ export function Finale() {
             >
               <ConfettiOverlay />
 
+              {/* Interactive heart — tap 7 times for easter egg */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
               >
-                <svg width="72" height="72" viewBox="0 0 24 24" fill="var(--color-rose)" className="mx-auto">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                </svg>
+                <HeartTapEasterEgg />
               </motion.div>
 
+              {/* Main heading */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -120,25 +142,58 @@ export function Finale() {
                 I love you, always
               </motion.h2>
 
+              {/* Days together counter */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="inline-block glass-card rounded-2xl px-6 py-4 mx-auto"
+              >
+                <motion.span
+                  className="font-serif text-3xl md:text-4xl text-(--color-gold) text-shadow-gold block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.8 }}
+                >
+                  {daysTogether}
+                </motion.span>
+                <span className="text-(--color-lavender)/90 text-xs uppercase tracking-widest">
+                  days of loving you
+                </span>
+              </motion.div>
+
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8 }}
-                className="text-(--color-lavender) text-sm max-w-xs mx-auto"
+                transition={{ delay: 1.3, duration: 0.8 }}
+                className="text-(--color-lavender) text-sm max-w-xs mx-auto italic"
               >
                 Every moment with you is a treasure. Here's to many more memories on our map. 💕
               </motion.p>
 
+              {/* Pixel art portrait */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.6, duration: 0.8 }}
+                className="mt-4"
+              >
+                <PixelArtPortrait imageSrc="/images/cutie.webp" />
+              </motion.div>
+
+              {/* Action buttons */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.5 }}
+                transition={{ delay: 2.2 }}
+                className="space-y-3"
               >
                 <Button
                   variant="secondary"
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="font-serif"
                 >
-                  Start from the beginning
+                  ↑ Relive our journey
                 </Button>
               </motion.div>
             </motion.div>

@@ -1,4 +1,5 @@
 import { FloatingHearts } from '@/components/FloatingHearts';
+import { SparkleBurst, SwipeSequenceDetector } from '@/features/easter-eggs/EasterEggs';
 import { unlockAudio } from '@/hooks/useAudio';
 import { useHaptic } from '@/hooks/useHaptic';
 import { useAppStore } from '@/stores/useAppStore';
@@ -10,8 +11,10 @@ import { SecretInput } from './SecretInput';
 export function Entrance() {
   const [isUnfolding, setIsUnfolding] = useState(false);
   const [showInput, setShowInput] = useState(true);
+  const [sparkleBurst, setSparkleBurst] = useState(false);
   const unlock = useAppStore((s) => s.unlock);
   const setInteracted = useAppStore((s) => s.setInteracted);
+  const addEasterEgg = useAppStore((s) => s.addEasterEgg);
   const { hapticSuccess } = useHaptic();
 
   const handleCorrectPassword = useCallback(() => {
@@ -27,10 +30,22 @@ export function Entrance() {
     unlock();
   }, [unlock]);
 
+  const handleSwipeEasterEgg = useCallback(() => {
+    setSparkleBurst(true);
+    addEasterEgg('swipe-sequence');
+    setTimeout(() => setSparkleBurst(false), 3000);
+  }, [addEasterEgg]);
+
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-(--color-midnight)">
       {/* Ambient hearts */}
       <FloatingHearts />
+
+      {/* Swipe sequence easter egg detector */}
+      <SwipeSequenceDetector onActivate={handleSwipeEasterEgg} />
+      <AnimatePresence>
+        {sparkleBurst && <SparkleBurst active />}
+      </AnimatePresence>
 
       {/* Aurora romantic glow */}
       <div className="aurora-bg" aria-hidden="true" />

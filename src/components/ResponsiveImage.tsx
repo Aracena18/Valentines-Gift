@@ -1,5 +1,5 @@
 import { useIntersection } from '@/hooks/useIntersection';
-import { useState, type CSSProperties } from 'react';
+import { useMemo, useState, type CSSProperties } from 'react';
 
 interface ResponsiveImageProps {
   src: string;
@@ -11,6 +11,20 @@ interface ResponsiveImageProps {
   sizes?: string;
   loading?: 'lazy' | 'eager';
   style?: CSSProperties;
+}
+
+/**
+ * Generates srcset and source elements for WebP/AVIF if available.
+ * Falls back to original src. Works with image naming convention:
+ *   /images/photo.jpg → /images/photo.webp, /images/photo.avif
+ */
+function getImageVariants(src: string) {
+  const base = src.replace(/\.[^.]+$/, '');
+  return {
+    avif: `${base}.avif`,
+    webp: `${base}.webp`,
+    original: src,
+  };
 }
 
 export function ResponsiveImage({
@@ -29,6 +43,7 @@ export function ResponsiveImage({
     triggerOnce: true,
   });
   const [loaded, setLoaded] = useState(false);
+  const variants = useMemo(() => getImageVariants(src), [src]);
 
   return (
     <div
@@ -50,18 +65,22 @@ export function ResponsiveImage({
         />
       )}
 
-      {/* Main image — only loads when in viewport */}
+      {/* Main image with picture element for modern format support */}
       {isVisible && (
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          sizes={sizes}
-          loading={loading}
-          onLoad={() => setLoaded(true)}
-          className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        />
+        <picture>
+          <source srcSet={variants.avif} type="image/avif" />
+          <source srcSet={variants.webp} type="image/webp" />
+          <img
+            src={variants.original}
+            alt={alt}
+            width={width}
+            height={height}
+            sizes={sizes}
+            loading={loading}
+            onLoad={() => setLoaded(true)}
+            className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </picture>
       )}
     </div>
   );

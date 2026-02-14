@@ -13,4 +13,3 @@ export async function hashPassword(password: string): Promise<string> {
 //     .then(buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join(''))
 //     .then(console.log)
 export const SECRET_HASH = '6c1cdd336524f0fb1617de6b0c644507640ec367f499ea19870ac2ec6937cda5'; // "072023"
-Ca

@@ -1,4 +1,5 @@
 import memoriesData from '@/data/memories.json';
+import { LongPressEasterEgg } from '@/features/easter-eggs/EasterEggs';
 import { useDeviceCapability } from '@/hooks/useDeviceCapability';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -32,7 +33,7 @@ export function DreamMap({ onPinClick }: DreamMapProps) {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[300dvh]"
+      className="relative min-h-[150dvh]"
       aria-label="Our memory map"
     >
       {/* Fixed viewport container */}
@@ -157,11 +158,30 @@ export function DreamMap({ onPinClick }: DreamMapProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <h2 className="font-handwriting text-2xl md:text-3xl text-(--color-cream) text-shadow-soft">
-            Our Journey Together
+          {/* Decorative line above */}
+          <motion.div
+            className="flex items-center justify-center gap-3 mb-3"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            <div className="h-px w-12 bg-linear-to-r from-transparent to-(--color-gold)/40" />
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="var(--color-rose)" opacity="0.5">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+            <div className="h-px w-12 bg-linear-to-l from-transparent to-(--color-gold)/40" />
+          </motion.div>
+
+          <h2 className="font-serif text-2xl md:text-3xl text-(--color-cream) text-shadow-soft">
+            <LongPressEasterEgg
+              message="You held on... just like I hold on to every memory of us. 🌟"
+              eggId="map-long-press"
+            >
+              Our Journey Together
+            </LongPressEasterEgg>
           </h2>
-          <p className="text-(--color-lavender) text-xs mt-1 opacity-60">
-            tap a pin to explore a memory
+          <p className="text-(--color-lavender) mt-2 opacity-80 font-handwriting text-sm">
+            scroll through time &amp; tap a pin to relive a memory
           </p>
         </motion.div>
       </div>

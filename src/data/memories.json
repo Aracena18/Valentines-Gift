@@ -1,24 +1,24 @@
 {
   "memories": [
     {
-      "id": "first-meeting",
-      "title": "The Day We Met",
-      "date": "2024-01-15",
-      "location": "That Little Coffee Shop",
-      "description": "I still remember how nervous I was. You smiled at me, and everything else just... faded away. That was the moment I knew something extraordinary was beginning.",
-      "image": "/images/placeholder-1.jpg",
+      "id": "first-Picture",
+      "title": "The Day Nikalit Rakag Pa Picture Sa Akoa Hahahaha",
+      "date": "2029 man guro ni",
+      "location": "Atbang sa Grade 9 Classroom",
+      "description": "Ambut ni kalit ramn kag pa picture sa akoa hahahahaha crush na jud ko nimo ani bahh Wahahhahahaha",
+      "image": "/images/first.webp",
       "lqip": "",
       "voiceClip": "",
       "color": "#e63946",
       "pinPosition": { "x": 25, "y": 18 }
     },
     {
-      "id": "first-date",
-      "title": "Our First Date",
-      "date": "2024-02-14",
-      "location": "Under the Stars",
-      "description": "We talked for hours and it felt like minutes. I couldn't stop looking at your eyes. You laughed at my terrible jokes and I fell a little more with each one.",
-      "image": "/images/placeholder-2.jpg",
+      "id": "first-Picture After Mag Confest",
+      "title": "Our First Picture After Mag Confest",
+      "date": "09-28-2022",
+      "location": "How Ironic sa Grade 9 Classroom japun hahahhah",
+      "description": "I just felt so happy after this one like, dili nmn kayo ta sig storya ani na time hahahahaha superr fallen najud during this time hahahahah.",
+      "image": "/images/second.webp",
       "lqip": "",
       "voiceClip": "",
       "color": "#d4a574",
@@ -27,22 +27,22 @@
     {
       "id": "first-trip",
       "title": "Our First Adventure",
-      "date": "2024-05-20",
-      "location": "Somewhere Beautiful",
-      "description": "Just you and me against the world. Every wrong turn became a new discovery, every moment became a memory I'll cherish forever.",
-      "image": "/images/placeholder-3.jpg",
+      "date": "07-20-2023",
+      "location": "Kapitan Tomas?",
+      "description": "First time that I've been on a trip with your family, grabeng excitement and kulba ani time, this also the time na I officially ask you to be my girlfriend pero wala tayy pictureee wahhhh.",
+      "image": "/images/third.webp",
       "lqip": "",
       "voiceClip": "",
       "color": "#b8a9c9",
       "pinPosition": { "x": 40, "y": 52 }
     },
     {
-      "id": "saying-iloveyou",
-      "title": "Three Little Words",
-      "date": "2024-07-04",
-      "location": "Right Where We Belonged",
-      "description": "My heart was racing so fast. When those words finally left my lips, and you said them back... that was the most perfect moment of my life.",
-      "image": "/images/placeholder-4.jpg",
+      "id": "First-trip-2",
+      "title": "First Samal Trip Together",
+      "date": "12-16-2023",
+      "location": "Mango Heaven",
+      "description": "You and Me against the world wahahahaha, fighting for our fear, the first ever trip that will forever be cherished, balikan tani sunod nig maka adto natag switzerland hahhahahahaa.",
+      "image": "/images/samal.webp",
       "lqip": "",
       "voiceClip": "",
       "color": "#ff6b7a",
@@ -51,14 +51,14 @@
     {
       "id": "favorite-moment",
       "title": "Our Little World",
-      "date": "2024-12-25",
+      "date": "02-14-2026",
       "location": "Home, With You",
-      "description": "It doesn't matter where we are — as long as I'm with you, I'm home. This was the moment I realized that. Wrapped in blankets, your head on my shoulder, everything was exactly right.",
-      "image": "/images/placeholder-5.jpg",
+      "description": "It doesn't matter, every moment with you is a treasure, those pa kalit-kalit na lakaw, pa kalit-kalit na kaon, every time na I'm with you all of those moments is special and will forever be treasured.",
+      "image": "/images/fifth.webp",
       "lqip": "",
       "voiceClip": "",
       "color": "#d4a574",
-      "pinPosition": { "x": 50, "y": 85 }
+      "pinPosition": { "x": 50, "y": 84 }
     }
   ]
 }

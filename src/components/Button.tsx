@@ -23,7 +23,7 @@ export function Button({
   const { hapticTap } = useHaptic();
 
   const baseClasses =
-    'relative inline-flex items-center justify-center font-medium rounded-2xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-gold) focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-midnight) disabled:opacity-50 disabled:pointer-events-none';
+    'relative inline-flex items-center justify-center font-medium rounded-2xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--color-gold) focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-midnight) disabled:opacity-50 disabled:pointer-events-none overflow-hidden';
 
   const variants = {
     primary:
@@ -35,7 +35,7 @@ export function Button({
   };
 
   const sizes = {
-    sm: 'text-sm px-4 py-2 min-h-[36px]',
+    sm: 'text-sm px-4 py-2.5 min-h-[44px]',
     md: 'text-base px-6 py-3 min-h-[44px]',
     lg: 'text-lg px-8 py-4 min-h-[52px]',
   };
@@ -52,7 +52,18 @@ export function Button({
       }}
       {...props}
     >
-      {children}
+      {/* Shimmer sweep for primary buttons */}
+      {variant === 'primary' && (
+        <span
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+            animation: 'btn-shimmer 3s ease-in-out infinite',
+          }}
+          aria-hidden="true"
+        />
+      )}
+      <span className="relative z-10">{children}</span>
     </motion.button>
   );
 }
