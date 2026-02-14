@@ -1,6 +1,6 @@
 import { useAudio } from '@/hooks/useAudio';
 import { useAppStore } from '@/stores/useAppStore';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 export function BackgroundMusic() {
